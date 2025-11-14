@@ -71,7 +71,7 @@ function Dashboard({profile}) {
                 <img
                   src={profile}
                   alt="Profile"
-                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                  
                   className="profile-image"
                 />) : "s" }
                 </div>
