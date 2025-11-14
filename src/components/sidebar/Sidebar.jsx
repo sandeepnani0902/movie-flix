@@ -7,24 +7,22 @@ function Sidebar() {
   const navigate = useNavigate()
   function handleUserLogedout(){
     if(confirm("are sure to logout")){
-      navigate("/login")
+      navigate("/")
     }
     
   }
   return (
     <div className="sidebar">
-      <div className="logo"><h2>Movie Flix</h2></div>
       <ul>
         <li><NavLink to="/dashboard" end><i className="bi bi-columns-gap"></i> <span>Dashboard</span></NavLink></li>
         <li><NavLink to="/dashboard/languages"><i className="bi bi-translate"></i><span>Languages</span></NavLink></li>
-        <li><NavLink to="/dashboard/genre"><i className="bi bi-genre"></i><span>Genre</span></NavLink></li>
+        <li><NavLink to="/dashboard/genre"><i className="bi bi-collection-play"></i><span>Genre</span></NavLink></li>
         <li><NavLink to="/dashboard/webseries"><i className="bi bi-tv"></i><span>Web Series</span></NavLink></li>
         <li><NavLink to="/dashboard/movies"><i className="bi bi-film"></i><span>Movies</span></NavLink></li>
         <li><NavLink to="/dashboard/profilesettings"><i className="bi bi-gear"></i><span>Profile Settings</span></NavLink></li>
       </ul>
-
       <div className="logout">
-        <button  onClick={handleUserLogedout}>Logout</button>
+        <button  onClick={handleUserLogedout}><i class="bi bi-box-arrow-left"></i> <span>Logout</span></button>
       </div>
     </div>
   );

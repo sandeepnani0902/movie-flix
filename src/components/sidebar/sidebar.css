@@ -1,23 +1,18 @@
 .sidebar {
   width: 310px;
-  height: 100vh;
+  height: 100%;
   background-color: #0d1b36;
   color: white;
-  position: fixed;
-  margin: 0;
-  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
 }
 .sidebar h2{
   color: #D4344A;
   font-size: 42px;
 }
-.logo{
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
-}
+
 .sidebar ul {
   list-style: none;
   padding: 0;
@@ -35,7 +30,6 @@ li a .bi{
   width: 20px;
   height: 20px;
   color: white;
-  /* background-color: white; */
 }
 .sidebar a {
   height: 40px;
@@ -46,7 +40,7 @@ li a .bi{
   align-items: center;
   text-decoration: none;
   padding-left: 30px;
-  gap: 15px;
+  gap: 20px;
   font-size: 26px;
    
 }
@@ -58,14 +52,9 @@ li a .bi{
   /* display: block; */
    background-color: #D4344A;
 }
-.logout {
+.logout{
   text-align: center;
-  
-  width: 100%;
-  position: absolute;
-  bottom: 48px;
-   /* height: 40px; */
-  /* left: 20px; */
+  font-size: 26px;
 }
 .logout button{
   width: 100%;
@@ -78,31 +67,13 @@ li a .bi{
   cursor: pointer;
 }
 
-@media screen and (max-width:968px) {
-  .sidebar {
-  width: 180px;
-  background-color: #0d1b36;
-
-}
-.sidebar ul{
-   gap: 22px;
-}
-
-.sidebar li a{
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  height: 20px;
-  transition: height 2s;
-}
-.sidebar li a.active{
-  height: auto;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  /* height: 20px; */
-}
+@media  screen and (max-width:768px) {
+  .sidebar{
+    width: 70px;
+  }
+  .logout span{
+    display: none;
+  }
 }
 
 

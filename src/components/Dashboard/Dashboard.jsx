@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import Sidebar from '../sidebar/Sidebar';
 import dropdownImg from "../../assets/dropdown.svg";
-import Viewprofile from './Dropdownpages/Viewprofile';
+// import Viewprofile from './Dropdownpages/Viewprofile';
 import './dashboard.css'; 
 
-function Dashboard() {
+function Dashboard({profile}) {
   const [checkdropdown, setCheckdropdown] = useState(false);
   const [rotate, setRotate] = useState("0deg");
   const [activedropdown, setActivedropdown] = useState('User Name');
+  const [menu, setMenu] = useState(false)
+  // const [screenwidth, setScreensize] = useState(window.width)
   
+  // const [sidebar, setSidebar] =useState({width:0, opacity:0})
   const location =  useLocation()
   const subpath = location.pathname;
   
@@ -17,6 +20,14 @@ function Dashboard() {
   const navigate = useNavigate();
 
   function handleDropDown() {
+
+    if(checkdropdown){
+      setCheckdropdown(false)
+    }
+    else{
+      setCheckdropdown(true)
+    }
+
     setCheckdropdown(!checkdropdown);
     setRotate(checkdropdown ? "0deg" : "180deg");
   }
@@ -40,20 +51,35 @@ function Dashboard() {
       navigate(`/${subpath }/${name.toLowerCase().replace(" ", "")}`);
     }
   }
-
+ function handletoggle(){
+    if(!menu){
+    setMenu(true)
+    }
+    else{
+      setMenu(false)
+    }
+ }
+ 
   return (
     <div className="dashboard-container">
-      <Sidebar />
-      <div className="dashboard-main">
-        <div className="dashboard-header">
-          <h3>Admin</h3>
+      <div className="dashboard-header">
+        <div className="logo">
+          <h2>Movie Flix</h2>
+        </div>
           <div className="user-section">
-            <div className="profile-circle">S</div>
+            <div className="profile-circle">{profile ? (
+                <img
+                  src={profile}
+                  alt="Profile"
+                  style={{ width: "50px", height: "50px", borderRadius: "50%" }}
+                  className="profile-image"
+                />) : "s" }
+                </div>
             <div className="dropdown">
               <div className="selectDropDown-section">
                 <div className="selectDropDown" onClick={handleDropDown}>
                   <span className="activedropdown">{activedropdown}</span>
-                  <img
+                  <img 
                     style={{ transform: `rotate(${rotate})`, transition: "transform 0.3s ease" }}
                     src={dropdownImg}
                     alt="Dropdown icon"
@@ -71,17 +97,18 @@ function Dashboard() {
             </div>
           </div>
         </div>
-
-        <div className="dashboard-content">
-          <Outlet />
-          {/* <div className='dropdownactivecontainer'>
-              { true && < Viewprofile />}
-          </div> */}
-          
+        <div className="dashboard-main">
+            <div className="menu" onClick={handletoggle}>
+              <i class="bi bi-list"></i>
+            </div>
+            <div className="sidebar-block">
+            <Sidebar />
+            </div>
+            <div className="dashboard-content">
+              <Outlet />
+            </div>
         </div>
-
         <footer>ramanasoftnocopyrights@2025</footer>
-      </div>
     </div>
   );
 }

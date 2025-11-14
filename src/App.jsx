@@ -15,15 +15,19 @@ import Viewprofile from './components/Dashboard/Dropdownpages/Viewprofile';
 import Editprofile from './components/Dashboard/Dropdownpages/Editprofile';
 import ProfileSetting from './components/Dashboard/Dropdownpages/ProfileSetting'
 import Username from './components/Dashboard/Dropdownpages/Username'
+import { useState } from 'react'
 
 function App() {
+  const [profile, setProfile] = useState(null)
 
+ 
   return (
     <div className='app'>
+      
       <Routes>
           <Route  path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />}>
+          <Route path="/register" element={<Register setProfile={setProfile}/>} />
+          <Route path="/dashboard" element={<Dashboard profile={profile}/>}>
   
   {/* Sidebar routes */}
       <Route index element={<DashboardHome />} />
@@ -34,10 +38,10 @@ function App() {
       <Route path="profilesettings" element={<ProfileSettings />} />
 
       {/* Dropdown pages */}
-      <Route path="viewprofile" element={<Viewprofile />} />
+      {/* <Route path="viewprofile" element={<Viewprofile />} />
       <Route path="editprofile" element={<Editprofile />} />
       <Route path="username" element={<Username />} />
-      <Route path="profilesetting" element={<ProfileSetting />} />
+      <Route path="profilesetting" element={<ProfileSetting />} /> */}
     </Route>
       </Routes>
       

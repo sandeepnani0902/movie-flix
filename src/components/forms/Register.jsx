@@ -3,8 +3,11 @@ import axios from 'axios';
 import './register.css';
 import {  NavLink, useNavigate } from 'react-router-dom';
 
-function Register() {
+
+function Register({setProfile}) {
   const navigate= useNavigate()
+
+  
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -40,7 +43,8 @@ function Register() {
   // ✅ Form submit
   async function handleForm(e) {
     e.preventDefault();
-    // navigate("/login")
+    setProfile(preview)
+    navigate("/login")
     const newerror = {};
 
     // ✅ First name validation
@@ -72,7 +76,6 @@ function Register() {
     if (!form.profile) {
       newerror.profile = "Please upload a profile picture";
     }
-    // navigate("/login")
 
     // ❌ If there are any errors, show and stop submit
     if (Object.keys(newerror).length > 0) {
