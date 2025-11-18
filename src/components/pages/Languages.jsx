@@ -12,7 +12,14 @@ function Languages() {
     console.log(language)
     setLanguage("")
     }
-
+    function handledelete(){
+      if(confirm("are you sure to delete long")){
+        console.log("deleted..")
+      }
+      else{
+        console.log("not deleted...")
+      }
+    }
   return (
     <div className='language-container'>
       <div className="language-header">
@@ -57,7 +64,7 @@ function Languages() {
                   <tr key={index}>
                     <td>{index + 1}</td>
                     <td>{lang}</td>
-                    <td>delete</td>
+                    <td style={{color:"red", cursor:'pointer'}} onClick={handledelete}>delete</td>
                   </tr>
                 ))}
               </tbody>
