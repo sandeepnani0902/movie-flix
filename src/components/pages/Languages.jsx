@@ -1,20 +1,51 @@
 import React, { useEffect, useState } from 'react'
 import Button from 'react-bootstrap/Button';
-import {Form, Container, Row, Col} from 'react-bootstrap';
+import {Form, Container, Row, Col, Table} from 'react-bootstrap';
 import '../pagescss/language.css'
 import axios from 'axios'
+import Tabledata from './Tabledata';
 function Languages() {
-  const [languageslist, setLanguageslist] = useState(["telugu", "english","hindhi","marathi", "tamil","kannada"])
+  const [languageslist, setLanguageslist] = useState([])
   const [language, setLanguage] = useState("")
  
-     async function savelanguage(){
-    // const response = await axios.post(`https://localhost:2025/movieflix/language/:${language}`)
-    console.log(language)
-    setLanguage("")
+
+  useEffect(()=>{
+    setTimeout(() => {
+      const getlanguages = async()=>{
+      try{
+         const res = await fetch("http://localhost:2025/movieflix/languages", 
+        {method:"get"}
+      )
+      const data = await res.json()
+      setLanguageslist(data)
+      } 
+      catch(err){
+        console.error(err)
+      } 
     }
-    function handledelete(){
+    getlanguages()
+    }, 100);
+    
+  },[languageslist])
+
+     async function savelanguage(){
+      try {
+        
+         const response = await axios.post(`http://localhost:2025/movieflix/language`, {language:language})
+         setLanguage("")
+
+      } catch (error) {
+        console.log("error:",error)
+      }
+    }
+    function handledelete(_id){
       if(confirm("are you sure to delete long")){
-        console.log("deleted..")
+        fetch(`http://localhost:2025/movieflix/language/${_id}`, {
+          method:"DELETE",
+          headers: {
+          "Content-Type": "application/json",
+        }
+        })
       }
       else{
         console.log("not deleted...")
@@ -39,7 +70,7 @@ function Languages() {
                     <Form.Label className='p-1' >
                           Language Name:
                       </Form.Label>
-                    <Form.Control className='input' type="email" placeholder="Enter Language Name" value={language} onChange={e => setLanguage(e.target.value) }/>
+                    <Form.Control type="text" className='input' placeholder="Enter Language Name" value={language} onChange={e => setLanguage(e.target.value) }/>
                     <Button className='primary mt-3' onClick={savelanguage} >Save Language</Button>
                   </Form.Group>
                </Form>
@@ -50,7 +81,7 @@ function Languages() {
           <div className='language-table'>
                 <h3>Language Lists ({languageslist.length})</h3>
                 <hr />
-            <table>
+            {/* <table>
               <thead>
                 <tr id='headers'>
                   <th>id</th>
@@ -58,24 +89,21 @@ function Languages() {
                   <th>action</th>
                 </tr>
               </thead>
-
               <tbody>
                 {languageslist.map((lang, index) => (
-                  <tr key={index}>
+                  <tr key={lang._id}>
                     <td>{index + 1}</td>
-                    <td>{lang}</td>
-                    <td style={{color:"red", cursor:'pointer'}} onClick={handledelete}>delete</td>
+                    <td>{lang.language}</td>
+                    <td style={{color:"red", cursor:'pointer'}} onClick={() =>handledelete(lang._id)}>delete</td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table> */}
+            <Tabledata datatype={language} data={ languageslist } headers={["Id", "Name", "Action"]} handledelete={handledelete}/>
           </div>
           </Col>
-
         </Row>
-      </Container>
-
-            
+      </Container>        
     </div>
  
   )

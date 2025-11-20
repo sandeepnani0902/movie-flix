@@ -1,0 +1,18 @@
+.genre-container{
+    margin: 0;
+    /* padding: 0 20px 0 20px; */
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    color: white;
+}
+.genre-header{
+        padding: 10px 0 0 10px;
+}
+.genre-subtitle{
+    background-color: #303030;
+    padding: 5px;
+}
+/* @media screen {
+    
+} */
