@@ -1,23 +1,22 @@
-import React, { useState } from 'react';
+import React, { use, useEffect, useState } from 'react';
 import { NavLink, Outlet, useNavigate, useLocation } from 'react-router-dom';
-import Sidebar from '../sidebar/Sidebar';
+import { Suspense, lazy } from 'react';
+ const Sidebar = lazy(() => import('../sidebar/Sidebar'));
 import dropdownImg from "../../assets/dropdown.svg";
 // import Viewprofile from './Dropdownpages/Viewprofile';
 import './dashboard.css'; 
 
-
-function Dashboard({profile}) {
+function Dashboard() {
+   const location = useLocation();
+  const subpath = location.pathname.split("/")[1];
+  const {username, profile} = location.state ? location.state : {username:"Guest User", profile:""};
+  const BASE_URL = "http://localhost:2025";
+  const profilePic = `${BASE_URL}/uploads/profile/${profile}`;
   const [checkdropdown, setCheckdropdown] = useState(false);
   const [rotate, setRotate] = useState("0deg");
-  const [activedropdown, setActivedropdown] = useState('User Name');
+  const [activedropdown, setActivedropdown] = useState(username);
   const [menu, setMenu] = useState(false)
-  // const [screenwidth, setScreensize] = useState(window.width)
-  
-  // const [sidebar, setSidebar] =useState({width:0, opacity:0})
-  const location =  useLocation()
-  const subpath = location.pathname;
-  
-
+ 
   const navigate = useNavigate();
 
   function handleDropDown() {
@@ -68,13 +67,13 @@ function Dashboard({profile}) {
           <h2>Movie Flix</h2>
         </div>
           <div className="user-section">
-            <div className="profile-circle">{profile ? (
+            <div className="profile-circle">{ profile ? (
                 <img
-                  src={profile}
+                  src={profilePic}
                   alt="Profile"
                   
                   className="profile-image"
-                />) : "s" }
+                />) : "🕵️‍♀️" }
                 </div>
             <div className="dropdown">
               <div className="selectDropDown-section">
@@ -89,7 +88,7 @@ function Dashboard({profile}) {
               </div>
               {checkdropdown && (
                 <ul className="dropdown-content">
-                  <li data-name="User Name" onClick={hanldedropdownoption}>User Name</li>
+                  <li data-name="User Name" onClick={hanldedropdownoption}>{username}</li>
                   <li data-name="View Profile" onClick={hanldedropdownoption}>View Profile</li>
                   <li data-name="Edit Profile" onClick={hanldedropdownoption}>Edit Profile</li>
                   <li data-name="Logout" onClick={hanldedropdownoption}>Logout</li>
@@ -102,11 +101,15 @@ function Dashboard({profile}) {
             <div className="menu" onClick={handletoggle}>
               <i class="bi bi-list"></i>
             </div>
-            <div className="sidebar-block">
-            <Sidebar />
+            <div className="sidebar-block">  
+               <Suspense fallback={ <div>processing...</div>}>  
+                  <Sidebar />
+                </Suspense>   
             </div>
             <div className="dashboard-content">
-              <Outlet />
+                <Suspense fallback={ <div>processing...</div>}>  
+                  <Outlet /> 
+                </Suspense>
             </div>
         </div>
         <footer>ramanasoftnocopyrights@2025</footer>

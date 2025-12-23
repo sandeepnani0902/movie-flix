@@ -8,30 +8,35 @@ function Languages() {
   const [languageslist, setLanguageslist] = useState([])
   const [language, setLanguage] = useState("")
  
-
-  useEffect(()=>{
-    setTimeout(() => {
       const getlanguages = async()=>{
       try{
          const res = await fetch("http://localhost:2025/movieflix/languages", 
         {method:"get"}
       )
-      const data = await res.json()
-      setLanguageslist(data)
+      const data = await res.json() 
+      console.log(data.data)
+      setLanguageslist(data.data)
       } 
       catch(err){
         console.error(err)
       } 
     }
+
+  useEffect(()=>{
     getlanguages()
-    }, 100);
-    
-  },[languageslist])
+   
+  },[])
 
      async function savelanguage(){
       try {
         
          const response = await axios.post(`http://localhost:2025/movieflix/language`, {language:language})
+         if(response.data.success){
+          console.log("language added successfully")
+         }else{
+          console.log("language not added")
+         }
+         getlanguages()
          setLanguage("")
 
       } catch (error) {
@@ -45,7 +50,14 @@ function Languages() {
           headers: {
           "Content-Type": "application/json",
         }
-        })
+        }).then(res => res.json()).then(data => {
+          if(data.success){
+            console.log("deleted successfully")
+            getlanguages()
+          }else{
+            console.log("not deleted")
+          }
+        }).catch(err => console.error("Error deleting language:", err));
       }
       else{
         console.log("not deleted...")
@@ -70,7 +82,7 @@ function Languages() {
                     <Form.Label className='p-1' >
                           Language Name:
                       </Form.Label>
-                    <Form.Control type="text" className='input' placeholder="Enter Language Name" value={language} onChange={e => setLanguage(e.target.value) }/>
+                    <Form.Control type="text" className='input bg-white' placeholder="Enter Language Name" value={language} onChange={e => setLanguage(e.target.value) }/>
                     <Button className='primary mt-3' onClick={savelanguage} >Save Language</Button>
                   </Form.Group>
                </Form>
@@ -79,7 +91,7 @@ function Languages() {
 
           <Col lg={8} md={6} xs={12}>
           <div className='language-table'>
-                <h3>Language Lists ({languageslist.length})</h3>
+                <h3>Language Lists ({languageslist.length > 0 ? languageslist.length : 0 })</h3>
                 <hr />
             {/* <table>
               <thead>

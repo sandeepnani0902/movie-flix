@@ -1,22 +1,77 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button, CardText } from 'react-bootstrap'
-import Tabledata from './Tabledata'
+// import Tabledata from './Tabledata'
+import axios from 'axios'
 import '../pagescss/genre.css'
+import { useEffect } from 'react'
 function Genre() {
-  const [genrelist, setGenreList] =useState([
-    
-  ])
+  
+  const [genrelist, setGenreList] =useState([])
   const [genre, setGenre] = useState("")
   const [category, setCategory] = useState("")
   const headers = ["Id","Genre", "Category","Action"]
-  function saveGenre(){
-    setGenreList([{
-      genre:genre,
-      category:category
-    }])
-  }
-  function handledelete(){
 
+   const fetchGenres = async () => {
+    try {
+      const res = await axios.get("http://localhost:2025/movieflix/genre"); 
+      if (res.data.success) {
+        setGenreList(res.data.data);
+      }
+      else{
+        console.error("Failed to fetch genres");
+      }
+     
+    } catch (err) {
+      console.error("Error fetching genres:", err);
+    } 
+   
+  }
+   useEffect(()=>{
+      fetchGenres();
+    },[])
+
+  async function saveGenre(){
+    if( genre && category){
+      try{
+      const res = await axios.post("http://localhost:2025/movieflix/genre",{genre, category})
+      if(res.data.data.success){
+        alert("Genre added successfully")
+        fetchGenres()
+        setGenre("")
+        setCategory("")
+       
+      }
+    }
+      catch(err){
+        console.error(err)
+      }
+    }
+    else{
+      alert("kindly check your input details...")
+    }
+    
+
+  }
+  function handledelete(id){
+    if(confirm("do want to delete genre")){
+      fetch(`http://localhost:2025/movieflix/genre/${id}`,{
+      method:"DELETE",
+      headers:{
+        "Content-Type":"application/json"
+      }
+    }).then(res => res.json())
+    .then(data =>{
+      if(data.success){
+        alert("genre deleted successfully")
+        fetchGenres()
+      }
+      
+    })
+    .catch(err => console.error("Error deleting genre:", err));
+  }
+  else{
+    console.error("not deleted...")
+  }
   }
   return (
     <div className='genre-container'>
@@ -24,19 +79,19 @@ function Genre() {
         <h2>Language Management</h2>
       </div>
       <hr />
-            <Container className='contianer'>
+        <Container className='contianer'>
         <Row>
           <Col lg={4} md={6} xs={12}>
             <div className="form">
                <Form>
                   <Form.Group className="mb-3">
                     <div className='genre-subtitle'>
-                      <h4>Add New Language</h4>
+                      <h4>Add New Genre</h4>
                     </div>
                     <Form.Label className='p-1' >
                           Genre Name:
                       </Form.Label>
-                    <Form.Control type="text" className='input' placeholder="Enter Genre Name" value={genre} onChange={e => setGenre(e.target.value) }/>
+                    <Form.Control type="text" className='input bg-white' placeholder="Enter Genre Name" value={genre} onChange={e => setGenre(e.target.value) }/>
                      <Form.Label className='p-1' >
                           Category:
                       </Form.Label>
@@ -52,8 +107,8 @@ function Genre() {
           </Col>
 
           <Col lg={8} md={6} xs={12}>
-          <div className='language-table'>
-                <h3>Language Lists ({genrelist.length})</h3>
+          <div className='genre-table'>
+                <h3>Genre Lists ({genrelist.length})</h3>
                 <hr />
             <table>
               <thead>
@@ -69,7 +124,7 @@ function Genre() {
                     <td>{index + 1}</td>
                     <td>{g.genre}</td>
                      <td>{g.category}</td>
-                    <td style={{color:"red", cursor:'pointer'}} onClick={() =>handledelete(g._id)}>delete</td>
+                    <td style={{color:"red", cursor:'pointer'}} ><button className='btn btn-danger' onClick={() =>handledelete(g._id)}><i className='bi bi-trash'></i></button></td>
                   </tr>
                 ))}
               </tbody>

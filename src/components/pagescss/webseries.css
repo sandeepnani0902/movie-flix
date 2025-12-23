@@ -1,0 +1,136 @@
+.web-series{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: #303030;
+    color: white;
+}
+.fitlering-fields{
+    display: flex;
+    flex-direction: column;
+   
+}
+.fitlering-fields label{
+    font-size: 22px;
+    margin-bottom: 5px;
+}
+.fitlering-fields input{
+    text-align: center;
+    font-size: 18px;
+    padding: 4px 0;
+    border:  none;
+    outline: none;
+}
+.fitlering-fields input::placeholder{
+    text-align: center;
+    font-size: 18px;
+    padding: 4px 0;
+}
+.filter-btn{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+
+}
+.web-series form{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+    gap: 5px;
+}
+.web-series input,select{
+    border: none;
+    outline: none;
+    padding:5px  5px ;
+    border-radius: 5px;
+}
+.web-series textarea{
+    padding: 0px 5px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+
+.web-series button{
+    /* padding: 0;
+    margin: 5px; */
+    font-size: 11px;
+}
+
+.web-series  table{
+    width: 100%;
+    background-color: rgb(244, 244, 244);
+    
+    
+}
+.web-series  thead {
+    background-color: #D4344A;
+    color: rgb(255, 255, 255);
+}
+
+.web-series  table tr, th, td{
+      text-align: center;
+      padding: 10px;
+      
+}
+.web-series  tr:nth-child(odd){
+    color: black;
+}
+.web-series  tr:nth-child(even) {
+  background-color: #dad6d6;
+  color: black;
+}
+/* .web-series tbody td:nth-last-child{
+    display: flex;
+    gap: 2px;
+} */
+
+/*  popup*/
+
+#season-pop-up{
+    position: fixed;
+    top: 50%;
+    left: 50%;  
+    transform: translate(-50%, -50%);
+    width: 50%;
+    height: 500px;
+    z-index: 1000;
+    border-radius: 10px;
+    padding: 20px;
+    overflow-y: scroll ;
+    scrollbar-width: none;
+}
+.manageseason{
+      position:fixed;
+    /* top: 50%; */
+    /* left: 50%; */
+    top: 50%;
+    left: 50%;
+     width: fit-content;
+    height: fit-content;
+    /* z-index: 9999; */
+    transform: translate(-50%, -50%);
+    background-color: #18191a;
+    padding: 5px 15px;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #28304d;
+}
+.manageseason .form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: start;
+    gap: 5px;
+    padding: 0;
+    margin: 0;
+}
+.manageseason input{
+    width: 100%;
+}

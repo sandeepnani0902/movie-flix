@@ -1,0 +1,123 @@
+.episode-page {
+    width: 100%;
+    height: 100%;
+    background-color: #e0e0e0;
+    background-color: #f9f9f9;
+    overflow-y: scroll;
+}
+.series-information{
+    margin-bottom: 10px;
+    padding: 5px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.info-list {
+    list-style-type: none;
+    /* padding-left: 20px;
+    margin-bottom: 20px; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 2fr));
+}
+
+.episode-form form {
+    background-color: #dad6d6;
+    padding: 20px 10px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* fieldset{
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+
+.episode-container {
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.episode-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: space-between
+}
+
+.episode-header .back-button {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.episode-details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.episode-form label {
+    font-weight: bold;
+}
+.episode-form input{
+    width: 100%;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+}
+
+.episode-submit {
+    background-color: #28a745;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.episode-submit:hover {
+    background-color: #218838;
+}
+
+.episode-list table {
+    width: 100%;
+    background-color: rgb(244, 244, 244);
+    border-collapse: collapse;
+}
+
+.episode-list thead {
+    background-color: #D4344A;
+    color: rgb(255, 255, 255);
+}
+
+.episode-list table tr,
+th,
+td {
+    text-align: center;
+    padding: 10px;
+
+}
+
+.episode-list tr:nth-child(odd) {
+    color: black;
+}
+
+.episode-list tr:nth-child(even) {
+    background-color: #dad6d6;
+    color: black;
+}

@@ -12,11 +12,12 @@ function Tabledata({data, headers,handledelete}) {
                 </tr>
               </thead>
               <tbody>
-                {data?.map((dt, index) => (
+                {data.length> 0 && data?.map((dt, index) => (
                   <tr key={dt._id}>
                     <td>{index + 1}</td>
                     <td>{dt.language}</td>
-                    <td style={{color:"red", cursor:'pointer'}} onClick={() =>handledelete(dt._id)}>delete</td>
+                    <td style={{color:"red", cursor:'pointer'}}>
+                      <button className='btn btn-danger'  onClick={() =>handledelete(dt._id)}><i className='bi bi-trash'></i></button></td>
                   </tr>
                 ))}
               </tbody>
